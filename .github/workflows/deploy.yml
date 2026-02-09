@@ -26,7 +26,10 @@ jobs:
 
       - name: 'Create Registry if missing'
         run: |
-          gcloud artifacts repositories create cloud-run-source-res             --repository-format=docker             --location=${{ env.REGION }}             --quiet || echo "Repository already exists"
+          gcloud artifacts repositories create cloud-run-source-res \
+            --repository-format=docker \
+            --location=${{ env.REGION }} \
+            --quiet || echo "Repository already exists"
 
       - name: 'Artifact Registry Hub'
         run: |
