@@ -24,18 +24,22 @@ jobs:
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
 
+      - name: 'Create Registry if missing'
+        run: |
+          gcloud artifacts repositories create cloud-run-source-res             --repository-format=docker             --location=${{ env.REGION }}             --quiet || echo "Repository already exists"
+
       - name: 'Artifact Registry Hub'
         run: |
-          gcloud auth configure-docker europe-north1-docker.pkg.dev
+          gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
 
       - name: 'Build and Push Container'
         run: |
-          docker build -t europe-north1-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-run-source-res/hello-flask:latest .
-          docker push europe-north1-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-run-source-res/hello-flask:latest
+          docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-run-source-res/hello-flask:latest .
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-run-source-res/hello-flask:latest
 
       - name: 'Deploy to Cloud Run'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
           service: ${{ env.SERVICE_NAME }}
           region: ${{ env.REGION }}
-          image: europe-north1-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-run-source-res/hello-flask:latest
+          image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/cloud-run-source-res/hello-flask:latest
