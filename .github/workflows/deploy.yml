@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 env:
-  PROJECT_ID: $(gcloud config get-value project) # Hämtar ditt projekt-ID automatiskt
+  PROJECT_ID: flask-deploy-2026
   REGION: europe-north1
   SERVICE_NAME: hello-flask
 
