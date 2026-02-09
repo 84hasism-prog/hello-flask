@@ -1,6 +1,2 @@
-cat > requirements.txt << EOF
 flask
-flask-sqlalchemy
-flask-migrate
 gunicorn==22.0.0
-EOF
