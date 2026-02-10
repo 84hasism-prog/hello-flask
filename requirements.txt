@@ -1,4 +1,4 @@
-echo "flask" > requirements.txt
-echo "gunicorn==22.0.0" >> requirements.txt
-echo "pyodbc==5.2.0" >> requirements.txt
-echo "flask-migrate" >> requirements.txt
+flask
+gunicorn==22.0.0
+pyodbc==5.2.0
+flask-migrate
